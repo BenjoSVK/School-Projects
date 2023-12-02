@@ -29,7 +29,7 @@ void nacitaj(PERSON **head);    // done
 void vypis(PERSON *head);       // done
 void pridaj(PERSON **head);     // done
 void zmaz(PERSON **head);       // done
-void usporiadaj(PERSON **head); // WIP
+void usporiadaj(PERSON **head); // done
 void relokacia(PERSON **head);  // done
 
 int main(void)
@@ -45,10 +45,6 @@ int main(void)
            " U - Usporiadanie dat\n"
            " R - Relokacia dat\n"
            " K - Koniec\n");
-    nacitaj(&head);
-    vypis(head);
-    usporiadaj(&head);
-    vypis(head);
     while (c != 'q')
     {
         printf("Zadaj funckiu: ");
