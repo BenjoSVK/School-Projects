@@ -386,85 +386,71 @@ void zmaz(PERSON **head)
         }
     }
 }
-void usporiadaj(PERSON **head) // started WIP
+void usporiadaj(PERSON **head)
 {
     PERSON *curr = *head;
-    PERSON *temp = NULL;
-    PERSON *second_curr = NULL;
-    PERSON *prev = NULL;
+    PERSON *prev = NULL, *next = NULL, *end = NULL;
     int swapped = 0;
     int count = 0, count_after = 0;
+
+    if ((*head) == NULL)
+    {
+        return;
+    }
     while (curr != NULL)
     {
         count++;
         curr = curr->next;
     }
     curr = *head;
-    if (*head != NULL)
+    do
     {
-        do
+        prev = NULL;
+        swapped = 0;
+        curr = (*head);
+        while (curr->next != end)
         {
-            // curr = (*head);
-            swapped = 0;
-            while (curr != NULL)
+            next = curr->next;
+            if (strcmp(curr->Datum, next->Datum) < 0 || (strcmp(curr->Datum, next->Datum) == 0 && strcmp(curr->Cas, next->Cas) < 0))
             {
-                if (curr->next != NULL)
+                if (prev == NULL)
                 {
-                    if (strcmp(curr->Datum, curr->next->Datum) < 0)
-                    {
-                        printf("P: %s -- C: %s -- C->N: %s\n", prev->Hodnota, curr->Hodnota, curr->next->Hodnota);
-                        if (curr == (*head))
-                        {
-                            temp = curr->next;
-                            prev->next = (*head);
-                            prev = temp;
-                            temp->next = (*head);
-                            (*head) = temp;
-                            swapped = 1;
-                        }
-                        else
-                        {
-                            temp = curr->next;
-                            prev->next = (*head);
-                            prev = temp;
-                            temp->next = (*head);
-                            (*head) = temp;
-                            swapped = 1;
-                        }
-                        // printf("P: %s -- C: %s -- C-N: %s\n", prev->Hodnota, curr->Hodnota, curr->next->Hodnota);
-                        // printf("Cuur: %s, prev->next: %s curr->next: %s\n",curr->Hodnota, prev->next->Hodnota, curr->next->Hodnota);
-                        swapped = 1;
-                    }
-                    else if (strcmp(curr->Datum, curr->next->Datum) == 0)
-                    {
-                        if (strcmp(curr->Cas, curr->next->Cas) < 0)
-                        {
-                            //         printf("%s -- %s\n", curr->Datum, curr->next->Datum);
-                            //         printf("%s -- %s\n", curr->Cas, curr->next->Cas);
-                            //         printf("Rovnake casy\n");
-                            swapped = 1;
-                        }
-                    }
+                    curr->next = next->next;
+                    next->next = curr;
+                    (*head) = next;
+                    swapped = 1;
                 }
+                else
+                {
+                    curr->next = next->next;
+                    next->next = curr;
+                    prev->next = next;
+                    swapped = 1;
+                }
+                prev = next;
+            }
+            else
+            {
                 prev = curr;
                 curr = curr->next;
             }
-        } while (swapped);
+        }
+        end = curr;
+    } while (swapped);
 
-        curr = *head;
-        while (curr != NULL)
-        {
-            count_after++;
-            curr = curr->next;
-        }
-        if (count_after > 0 && count == count_after)
-        {
-            printf("Spajany zoznam bol usporiadany.\n");
-        }
-        else if (count != count_after)
-        {
-            printf("Chyba usporiadania.\n");
-        }
+    curr = *head;
+    while (curr != NULL)
+    {
+        count_after++;
+        curr = curr->next;
+    }
+    if (count_after > 0 && count == count_after)
+    {
+        printf("Spajany zoznam bol usporiadany.\n");
+    }
+    else if (count != count_after)
+    {
+        printf("Chyba usporiadania.\n");
     }
 }
 void relokacia(PERSON **head)
