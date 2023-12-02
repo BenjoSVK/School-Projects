@@ -444,7 +444,7 @@ void usporiadaj(PERSON **head)
         count_after++;
         curr = curr->next;
     }
-    if (count_after > 0 && count == count_after)
+    if (count == count_after)
     {
         printf("Spajany zoznam bol usporiadany.\n");
     }
